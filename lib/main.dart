@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, prefer_typing_uninitialized_variables, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 
@@ -27,6 +27,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String selectedQualities = "Creativity";
+  List<String> selectedItem_ArrayList = []; //Storing DropDown selected data
+
   List<String> qualities = [
     "Creativity",
     "Commitment",
@@ -35,17 +37,11 @@ class _MyHomePageState extends State<MyHomePage> {
     "Innovative"
   ];
 
-  var myQuality_1 = "";
-  var myQuality_2 = "";
-  var myQuality_3 = "";
-  var myQuality_4 = "";
-  var myQuality_5 = "";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("gjgjj"),
+        title: Text("Hola"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -68,13 +64,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (myQuality_1.isNotEmpty)
+                      for (var i = 0; i < selectedItem_ArrayList.length; i++)
                         ListTile(
-                          title: Text(myQuality_1),
+                          title: Text(selectedItem_ArrayList[i]),
                           trailing: GestureDetector(
+                            //#################### remove specific index item
                             onTap: () {
                               setState(() {
-                                myQuality_1 = "";
+                                selectedItem_ArrayList
+                                    .remove(selectedItem_ArrayList[i]);
                               });
                             },
                             child: Icon(
@@ -83,68 +81,6 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                         ),
-
-                      //=====================================================2
-                      if (myQuality_2.isNotEmpty)
-                        ListTile(
-                          title: Text(myQuality_2),
-                          trailing: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                myQuality_2 = "";
-                              });
-                            },
-                            child:
-                                Icon(Icons.delete_rounded, color: Colors.red),
-                          ),
-                        ),
-                      //=====================================================3
-
-                      if (myQuality_3.isNotEmpty)
-                        ListTile(
-                          title: Text(myQuality_3),
-                          trailing: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                myQuality_3 = "";
-                              });
-                            },
-                            child:
-                                Icon(Icons.delete_rounded, color: Colors.red),
-                          ),
-                        ),
-
-                      //=====================================================4
-
-                      if (myQuality_4.isNotEmpty)
-                        ListTile(
-                          title: Text(myQuality_4),
-                          trailing: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                myQuality_4 = "";
-                              });
-                            },
-                            child:
-                                Icon(Icons.delete_rounded, color: Colors.red),
-                          ),
-                        ),
-
-                      //=====================================================5
-
-                      if (myQuality_5.isNotEmpty)
-                        ListTile(
-                          title: Text(myQuality_5),
-                          trailing: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                myQuality_5 = "";
-                              });
-                            },
-                            child:
-                                Icon(Icons.delete_rounded, color: Colors.red),
-                          ),
-                        )
                     ],
                   )),
                 ),
@@ -177,23 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               onChanged: (value) {
                                 setState(() {
                                   selectedQualities = value!;
-
-                                  if (myQuality_1.isEmpty) {
-                                    myQuality_1 = selectedQualities;
-                                  } else if (myQuality_1.isNotEmpty &&
-                                      myQuality_2.isEmpty) {
-                                    myQuality_2 = selectedQualities;
-                                  } else if (myQuality_2.isNotEmpty &&
-                                      myQuality_3.isEmpty) {
-                                    myQuality_3 = selectedQualities;
-                                  } else if (myQuality_3.isNotEmpty &&
-                                      myQuality_4.isEmpty) {
-                                    myQuality_4 = selectedQualities;
-                                  } else if (myQuality_4.isNotEmpty &&
-                                      myQuality_5.isEmpty) {
-                                    myQuality_5 = selectedQualities;
-                                  }
-                                });
+                                  selectedItem_ArrayList.add(selectedQualities);
+                                }); //===========================================Adding item into list
                               },
                               value: selectedQualities,
                               items: qualities

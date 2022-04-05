@@ -111,19 +111,30 @@ class _MyHomePageState extends State<MyHomePage> {
                               iconSize: 24,
                               isExpanded: true,
                               onChanged: (value) {
-                                setState(() {
-                                  selectedQualities = value!;
-                                  selectedItem_ArrayList.add(selectedQualities);
-                                }); //===========================================Adding item into list
+                                if (!selectedItem_ArrayList.contains(value)) {
+                                  //=============================================>>>Items Disable after selection
+                                  setState(() {
+                                    selectedQualities = value!;
+                                    selectedItem_ArrayList
+                                        .add(selectedQualities);
+                                  });
+                                }
+                                //==============================================>>>Adding item into list
                               },
                               value: selectedQualities,
                               items: qualities
-                                  .map((state) => DropdownMenuItem(
+                                  .map((dropdownValue) => DropdownMenuItem(
                                         child: Text(
-                                          state,
+                                          dropdownValue,
                                           maxLines: 2,
+                                          style: TextStyle(
+                                            color: selectedItem_ArrayList
+                                                    .contains(dropdownValue)
+                                                ? Colors.grey
+                                                : null,
+                                          ),
                                         ),
-                                        value: state,
+                                        value: dropdownValue,
                                       ))
                                   .toList(),
                             ),
